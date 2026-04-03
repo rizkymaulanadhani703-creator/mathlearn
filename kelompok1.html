@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaMathkelompok1| Eksplorasi Matematika</title>
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --secondary: #ec4899;
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --text: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Navbar Desktop --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        nav h1 {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hamburger Menu Icon --- */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 2001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--text);
+            border-radius: 3px;
+            transition: 0.3s ease;
+        }
+
+        /* --- Sidebar Slide Menu --- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px; 
+            width: 250px;
+            height: 100vh;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+            z-index: 1500;
+            padding-top: 80px;
+            transition: right 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar.active {
+            right: 0; 
+        }
+
+        .sidebar a {
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: var(--text);
+            font-weight: 500;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar a:hover {
+            background: rgba(255,255,255,0.05);
+            border-left: 4px solid var(--secondary);
+            color: var(--secondary);
+            padding-left: 40px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links { display: none; } 
+            .hamburger { display: flex; } 
+            nav { padding: 20px 30px; }
+        }
+
+        /* --- Sections --- */
+        section {
+            min-height: 100vh;
+            padding: 120px 50px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #home {
+            text-align: center;
+            background: radial-gradient(circle at top, #1e1b4b, var(--bg));
+        }
+
+        #home h2 { font-size: 3.5rem; margin-bottom: 20px; }
+
+        .btn {
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4);
+        }
+
+        .materi-container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-top: 20px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: var(--text);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active, .tab-btn:hover { background: var(--primary); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .materi-box, .contoh-soal {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        #quiz { background: radial-gradient(circle at bottom, #1e1b4b, var(--bg)); }
+
+        .quiz-panel {
+            width: 100%;
+            max-width: 700px;
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .level-selector { margin: 20px 0; display: flex; justify-content: center; gap: 10px; }
+        .level-btn {
+            padding: 10px 20px; background: #334155; border: none;
+            color: white; border-radius: 5px; cursor: pointer; transition: 0.3s;
+        }
+        .level-btn.active { background: var(--secondary); }
+        .level-btn:hover { background: var(--primary); }
+
+        .question-box { margin: 20px 0; text-align: left; display: none; }
+        .options { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        .option-btn {
+            padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            color: white; border-radius: 8px; cursor: pointer; text-align: left; transition: 0.2s;
+        }
+        .option-btn:hover { background: var(--primary); border-color: var(--primary); }
+        #score-board { display: none; margin-top: 20px; font-size: 1.5rem; color: #4ade80; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h1>MathLearnKelompok1</h1>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#materi">Materi</a></li>
+            <li><a href="#quiz">Quiz Interaktif</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebarMenu">
+        <a href="#home" onclick="toggleSidebar()">Home</a>
+        <a href="#materi" onclick="toggleSidebar()">Materi</a>
+        <a href="#quiz" onclick="toggleSidebar()">Quiz Interaktif</a>
+    </div>
+
+    <section id="home">
+        <h2>Kuasai Matematika dengan Mudah</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 30px; color: #cbd5e1; max-width: 600px;">Belajar Aljabar, Geometri, dan Trigonometri secara interaktif dalam satu platform.</p>
+        <a href="#materi" class="btn">Mulai Belajar</a>
+    </section>
+
+    <section id="materi">
+        <h2>Pusat Materi & Pembahasan</h2>
+        <div class="materi-container">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="openTab(event, 'aljabar')">Aljabar</button>
+                <button class="tab-btn" onclick="openTab(event, 'geometri')">Geometri</button>
+                <button class="tab-btn" onclick="openTab(event, 'trigonometri')">Trigonometri</button>
+            </div>
+
+            <div id="aljabar" class="tab-content active">
+                <h3>Pengantar Aljabar</h3>
+                <div class="materi-box">
+                    <p>Aljabar adalah cabang matematika yang menggantikan huruf dengan angka untuk memecahkan masalah. Komponen utamanya meliputi <strong>Variabel</strong> (huruf seperti x, y), <strong>Koefisien</strong> (angka di depan variabel), dan <strong>Konstanta</strong> (angka yang berdiri sendiri).</p>
+                </div>
+                <div class="contoh-soal">
+                    <h4>Contoh Soal & Pembahasan</h4>
+                    <p><strong>Soal:</strong> Tentukan nilai x dari persamaan 2x + 5 = 15!</p>
+                    <p><strong>Pembahasan:</strong><br>
+                    1. Pindahkan konstanta 5 ke ruas kanan: 2x = 15 - 5<br>
+                    2. Hitung hasilnya: 2x = 10<br>
+                    3. Bagi kedua ruas dengan 2: x = 10 / 2<br>
+                    4. Hasil akhir: <strong>x = 5</strong></p>
+                </div>
+            </div>
+
+            <div id="geometri" class="tab-content">
+                <h3>Dasar Geometri</h3>
+                <div class="materi-box">
+                    <p>Geometri mempelajari bentuk, ukuran, dan posisi bangun ruang maupun bangun datar. Salah satu konsep penting adalah <strong>Teorema Pythagoras</strong> (a² + b² = c²) yang berlaku pada segitiga siku-siku.</p>
+                </div>
+                <div class="contoh-soal">
+                    <h4>Contoh Soal & Pembahasan</h4>
+                    <p><strong>Soal:</strong> Sebuah segitiga siku-siku memiliki alas 3 cm dan tinggi 4 cm. Berapakah sisi miringnya?</p>
+                    <p><strong>Pembahasan:</strong><br>
+                    1. Gunakan rumus Pythagoras: c² = a² + b²<br>
+                    2. Masukkan nilai: c² = 3² + 4²<br>
+                    3. Hitung pangkat: c² = 9 + 16 = 25<br>
+                    4. Akar dari 25: <strong>c = 5 cm</strong></p>
+                </div>
+            </div>
+
+            <div id="trigonometri" class="tab-content">
+                <h3>Konsep Trigonometri</h3>
+                <div class="materi-box">
+                    <p>Trigonometri mempelajari hubungan antara sudut dan sisi pada segitiga. Nilai dasar trigonometri meliputi: <strong>Sinus (Sin)</strong> = Depan/Miring, <strong>Cosinus (Cos)</strong> = Samping/Miring, dan <strong>Tangen (Tan)</strong> = Depan/Samping.</p>
+                </div>
+                <div class="contoh-soal">
+                    <h4>Contoh Soal & Pembahasan</h4>
+                    <p><strong>Soal:</strong> Jika Sin A = 3/5, tentukan nilai Cos A (asumsikan sudut lancip)!</p>
+                    <p><strong>Pembahasan:</strong><br>
+                    1. Diketahui Sisi Depan = 3, Sisi Miring = 5.<br>
+                    2. Cari Sisi Samping pakai Pythagoras: √(5² - 3²) = √(25 - 9) = √16 = 4.<br>
+                    3. Rumus Cos = Samping/Miring.<br>
+                    4. Hasil akhir: <strong>Cos A = 4/5</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz">
+        <h2>Uji Kemampuanmu</h2>
+        <div class="quiz-panel">
+            <p style="margin-bottom: 15px;"><strong>Instruksi:</strong> Pilih tingkat kesulitan. Nilai dihitung otomatis di akhir kuis.</p>
+            
+            <div class="level-selector">
+                <button class="level-btn active" onclick="loadQuiz(event, 'mudah')">Mudah</button>
+                <button class="level-btn" onclick="loadQuiz(event, 'sedang')">Sedang</button>
+                <button class="level-btn" onclick="loadQuiz(event, 'sulit')">Sulit</button>
+            </div>
+
+            <div id="quiz-container"></div>
+            
+            <div id="score-board">
+                Skor Anda: <span id="final-score">0</span> / 100
+                <br>
+                <button class="btn" style="margin-top: 20px;" onclick="loadQuiz(null, 'mudah')">Main Lagi</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // --- LOGIKA SIDEBAR MENU ---
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebarMenu");
+            sidebar.classList.toggle("active");
+            
+            const spans = document.querySelectorAll('.hamburger span');
+            if(sidebar.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        }
+
+        // --- SCRIPT MATERI YANG DIPERBAIKI ---
+        function openTab(evt, tabName) {
+            let i, x, btns;
+            x = document.getElementsByClassName("tab-content");
+            btns = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+                x[i].classList.remove("active");
+                btns[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            setTimeout(() => document.getElementById(tabName).classList.add("active"), 10);
+            
+            // Pengamanan fungsi event
+            if(evt && evt.currentTarget) {
+                evt.currentTarget.classList.add("active");
+            }
+        }
+
+        // --- SCRIPT KUIS YANG DIPERBAIKI (10 SOAL PER LEVEL) ---
+        const soalKuis = {
+            mudah: [
+                { q: "Berapa hasil dari 3x = 12?", options: ["x = 3", "x = 4", "x = 5"], answer: 1 },
+                { q: "Bangun datar yang memiliki 3 sisi adalah?", options: ["Persegi", "Lingkaran", "Segitiga"], answer: 2 },
+                { q: "Nilai dari 5 + 3x, jika x = 2 adalah?", options: ["10", "11", "16"], answer: 1 },
+                { q: "Berapa besar sudut siku-siku?", options: ["45°", "90°", "180°"], answer: 1 },
+                { q: "Rumus keliling persegi dengan sisi 's' adalah?", options: ["s²", "4s", "2s"], answer: 1 },
+                { q: "Jika 2x + 4 = 10, berapakah nilai x?", options: ["2", "3", "4"], answer: 1 },
+                { q: "Segitiga yang ketiga sisinya sama panjang disebut?", options: ["Sama kaki", "Siku-siku", "Sama sisi"], answer: 2 },
+                { q: "Berapakah hasil dari 7² (Tujuh pangkat dua)?", options: ["14", "49", "21"], answer: 1 },
+                { q: "Pada segitiga siku-siku, sisi terpanjang disebut?", options: ["Alas", "Tinggi", "Hipotenusa"], answer: 2 },
+                { q: "Jika y - 5 = 15, maka nilai y adalah?", options: ["10", "20", "25"], answer: 1 }
+            ],
+            sedang: [
+                { q: "Luas segitiga dengan alas 10 cm dan tinggi 5 cm adalah?", options: ["25 cm²", "50 cm²", "15 cm²"], answer: 0 },
+                { q: "Nilai Sin 30° adalah?", options: ["1/2", "1", "0"], answer: 0 },
+                { q: "Jika 3(x - 2) = 15, nilai x adalah?", options: ["5", "7", "9"], answer: 1 },
+                { q: "Berapa luas lingkaran dengan jari-jari 7 cm? (π = 22/7)", options: ["44 cm²", "154 cm²", "49 cm²"], answer: 1 },
+                { q: "Nilai Cos 90° adalah?", options: ["1", "1/2", "0"], answer: 2 },
+                { q: "Sebuah persegi panjang memiliki panjang 8 cm dan lebar 5 cm. Kelilingnya adalah?", options: ["26 cm", "40 cm", "13 cm"], answer: 0 },
+                { q: "Hasil pemfaktoran dari x² + 5x + 6 adalah?", options: ["(x+1)(x+6)", "(x+2)(x+3)", "(x-2)(x-3)"], answer: 1 },
+                { q: "Nilai Tan 45° adalah?", options: ["0", "1", "Tak terhingga"], answer: 1 },
+                { q: "Panjang diagonal ruang pada kubus dengan rusuk 'a' adalah?", options: ["a√2", "a√3", "2a"], answer: 1 },
+                { q: "Penyelesaian dari 2x + y = 5 dan x - y = 1 adalah?", options: ["x=1, y=2", "x=2, y=1", "x=3, y=-1"], answer: 1 }
+            ],
+            sulit: [
+                { q: "Jika x² - 5x + 6 = 0, maka akar-akarnya adalah?", options: ["-2 dan -3", "2 dan 3", "1 dan 6"], answer: 1 },
+                { q: "Nilai dari Cos 60° + Sin 30° adalah?", options: ["1", "1/2", "2"], answer: 0 },
+                { q: "Sebuah segitiga memiliki sisi 5, 12, dan 13. Apakah jenis segitiga tersebut?", options: ["Lancip", "Tumpul", "Siku-siku"], answer: 2 },
+                { q: "Nilai dari (Sin 45°)² + (Cos 45°)² adalah?", options: ["0", "1", "2"], answer: 1 },
+                { q: "Tentukan nilai x dari persamaan kuadrat 2x² - 8x + 8 = 0!", options: ["2", "-2", "4"], answer: 0 },
+                { q: "Jika panjang bayangan tiang 4 m adalah 3 m, berapa tinggi pohon yang bayangannya 15 m pada saat yang sama?", options: ["12 m", "15 m", "20 m"], answer: 2 },
+                { q: "Diketahui barisan aritmatika 2, 5, 8, 11... Suku ke-10 adalah?", options: ["27", "29", "31"], answer: 1 },
+                { q: "Nilai maksimum dari fungsi kuadrat y = -x² + 4x - 3 adalah?", options: ["1", "3", "5"], answer: 0 },
+                { q: "Identitas Sin²x + Cos²x = 1 didasarkan pada teorema?", options: ["Thales", "Pythagoras", "Stewart"], answer: 1 },
+                { q: "Sebuah kubus memiliki volume 343 cm³. Berapa luas permukaannya?", options: ["294 cm²", "196 cm²", "256 cm²"], answer: 0 }
+            ]
+        };
+
+        let soalSaatIni = []; let indexSoal = 0; let skor = 0;
+
+        function loadQuiz(evt, level) {
+            document.getElementById('score-board').style.display = "none";
+            let btns = document.getElementsByClassName("level-btn");
+            for (let i = 0; i < btns.length; i++) btns[i].classList.remove("active");
+            
+            // Pengamanan fungsi event
+            if(evt && evt.currentTarget) {
+                evt.currentTarget.classList.add("active");
+            } else {
+                // Default fallback untuk 'Mudah' jika tidak ada event klik
+                btns[0].classList.add("active"); 
+            }
+
+            soalSaatIni = soalKuis[level]; indexSoal = 0; skor = 0;
+            renderSoal();
+        }
+
+        function renderSoal() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = ""; 
+            if (indexSoal < soalSaatIni.length) {
+                let s = soalSaatIni[indexSoal];
+                let box = document.createElement('div');
+                box.className = 'question-box';
+                box.style.display = 'block';
+                let qHtml = `<h3>Soal ${indexSoal + 1} dari ${soalSaatIni.length}</h3><p style="margin-bottom: 10px;">${s.q}</p><div class="options">`;
+                s.options.forEach((opt, idx) => {
+                    qHtml += `<button class="option-btn" onclick="cekJawaban(${idx})">${opt}</button>`;
+                });
+                qHtml += `</div>`;
+                box.innerHTML = qHtml;
+                container.appendChild(box);
+            } else { tampilkanSkor(); }
+        }
+
+        function cekJawaban(idxDipilih) {
+            if (idxDipilih === soalSaatIni[indexSoal].answer) skor += (100 / soalSaatIni.length);
+            indexSoal++; renderSoal();
+        }
+
+        function tampilkanSkor() {
+            document.getElementById('score-board').style.display = "block";
+            document.getElementById('final-score').innerText = Math.round(skor);
+        }
+
+        // Inisialisasi awal saat web dibuka
+        window.onload = () => { 
+            soalSaatIni = soalKuis['mudah']; 
+            renderSoal(); 
+        };
+    </script>
+</body>
+</html>
