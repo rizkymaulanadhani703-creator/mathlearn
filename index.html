@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaMathkelompok1 | Eksplorasi Matematika</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <h1>MathLearnKelompok1</h1>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#materi">Materi</a></li>
+            <li><a href="#quiz">Quiz Interaktif</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebarMenu">
+        <a href="#home" onclick="toggleSidebar()">Home</a>
+        <a href="#materi" onclick="toggleSidebar()">Materi</a>
+        <a href="#quiz" onclick="toggleSidebar()">Quiz Interaktif</a>
+    </div>
+
+    <section id="home">
+        <h2>Kuasai Matematika dengan Mudah</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 30px; color: #cbd5e1; max-width: 600px;">Belajar Aljabar, Geometri, dan Trigonometri secara interaktif dalam satu platform.</p>
+        <a href="#materi" class="btn">Mulai Belajar</a>
+    </section>
+
+    <section id="materi">
+        <h2>Pusat Materi & Pembahasan</h2>
+        <div class="materi-container">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="openTab(event, 'aljabar')">Aljabar</button>
+                <button class="tab-btn" onclick="openTab(event, 'geometri')">Geometri</button>
+                <button class="tab-btn" onclick="openTab(event, 'trigonometri')">Trigonometri</button>
+            </div>
+
+            <div id="aljabar" class="tab-content active">
+                <h3>Pengantar Aljabar</h3>
+                <div class="materi-box">
+                    <p>Aljabar adalah cabang matematika yang menggantikan huruf dengan angka untuk memecahkan masalah. Komponen utamanya meliputi <strong>Variabel</strong> (huruf seperti x, y), <strong>Koefisien</strong> (angka di depan variabel), dan <strong>Konstanta</strong> (angka yang berdiri sendiri).</p>
+                </div>
+                <div class="contoh-soal">
+                    <h4>Contoh Soal & Pembahasan</h4>
+                    <p><strong>Soal:</strong> Tentukan nilai x dari persamaan 2x + 5 = 15!</p>
+                    <p><strong>Pembahasan:</strong><br>
+                    1. Pindahkan konstanta 5 ke ruas kanan: 2x = 15 - 5<br>
+                    2. Hitung hasilnya: 2x = 10<br>
+                    3. Bagi kedua ruas dengan 2: x = 10 / 2<br>
+                    4. Hasil akhir: <strong>x = 5</strong></p>
+                </div>
+            </div>
+
+            <div id="geometri" class="tab-content">
+                <h3>Dasar Geometri</h3>
+                <div class="materi-box">
+                    <p>Geometri mempelajari bentuk, ukuran, dan posisi bangun ruang maupun bangun datar. Salah satu konsep penting adalah <strong>Teorema Pythagoras</strong> (a² + b² = c²) yang berlaku pada segitiga siku-siku.</p>
+                </div>
+                <div class="contoh-soal">
+                    <h4>Contoh Soal & Pembahasan</h4>
+                    <p><strong>Soal:</strong> Sebuah segitiga siku-siku memiliki alas 3 cm dan tinggi 4 cm. Berapakah sisi miringnya?</p>
+                    <p><strong>Pembahasan:</strong><br>
+                    1. Gunakan rumus Pythagoras: c² = a² + b²<br>
+                    2. Masukkan nilai: c² = 3² + 4²<br>
+                    3. Hitung pangkat: c² = 9 + 16 = 25<br>
+                    4. Akar dari 25: <strong>c = 5 cm</strong></p>
+                </div>
+            </div>
+
+            <div id="trigonometri" class="tab-content">
+                <h3>Konsep Trigonometri</h3>
+                <div class="materi-box">
+                    <p>Trigonometri mempelajari hubungan antara sudut dan sisi pada segitiga. Nilai dasar trigonometri meliputi: <strong>Sinus (Sin)</strong> = Depan/Miring, <strong>Cosinus (Cos)</strong> = Samping/Miring, dan <strong>Tangen (Tan)</strong> = Depan/Samping.</p>
+                </div>
+                <div class="contoh-soal">
+                    <h4>Contoh Soal & Pembahasan</h4>
+                    <p><strong>Soal:</strong> Jika Sin A = 3/5, tentukan nilai Cos A (asumsikan sudut lancip)!</p>
+                    <p><strong>Pembahasan:</strong><br>
+                    1. Diketahui Sisi Depan = 3, Sisi Miring = 5.<br>
+                    2. Cari Sisi Samping pakai Pythagoras: √(5² - 3²) = √(25 - 9) = √16 = 4.<br>
+                    3. Rumus Cos = Samping/Miring.<br>
+                    4. Hasil akhir: <strong>Cos A = 4/5</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz">
+        <h2>Uji Kemampuanmu</h2>
+        <div class="quiz-panel">
+            <p style="margin-bottom: 15px;"><strong>Instruksi:</strong> Pilih tingkat kesulitan. Nilai dihitung otomatis di akhir kuis.</p>
+            
+            <div class="level-selector">
+                <button class="level-btn active" onclick="loadQuiz(event, 'mudah')">Mudah</button>
+                <button class="level-btn" onclick="loadQuiz(event, 'sedang')">Sedang</button>
+                <button class="level-btn" onclick="loadQuiz(event, 'sulit')">Sulit</button>
+            </div>
+
+            <div id="quiz-container"></div>
+            
+            <div id="score-board">
+                Skor Anda: <span id="final-score">0</span> / 100
+                <br>
+                <button class="btn" style="margin-top: 20px;" onclick="loadQuiz(null, 'mudah')">Main Lagi</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
